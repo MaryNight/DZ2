@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block body %}
+
+{{ form.non_field_errors }}
+<form action="{% url 'signup' %}" method="post" class="form-horizontal" enctype="multipart/form-data">
+    {% csrf_token %}
+    {%  for i in form %}
+    <div class="form-group">
+        <label class="col-sm-4">{{ i.label }}</label>
+        <div class="col-sm-8">
+            <div>
+                {{ i }}
+            </div>
+            <div>
+                {{ i.errors }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <input type="submit" value="Зарегистрировать меня" class="btn btn-default"/>
+        </div>
+    </div>
+</form>
+{% endblock %}

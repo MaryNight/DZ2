@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <title>{% block title %}Тестовый вывод{% endblock %}</title>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand">РЕПЕТИТОРСТВО</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Базовый класс</a></li>
+        <li><a href="{% url 'lessons' %}">Уроки</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'new_lesson' %}">Новый урок</a></li>
+        {% endif %}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+            <li><div style="padding-top:15px"><i><b>Здраствуйте, {{ user.get_short_name }}</b></i></div></li>
+            <li><a href="{% url 'logout' %}">Выйти из {{ user.get_username }}</a></li>
+        {% else %}
+            <li><div style="padding-top:15px"><i><b>Вы вошли как Гость</b></i></div></li>
+            <li><a href="{% url 'signup' %}">Зарегистрироваться</a></li>
+            <li><a href="{% url 'login' %}">Войти</a></li>
+        {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div>
+        {% block body %}Redefined by spawnlings{% endblock %}
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

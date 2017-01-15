@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Новый урок{% endblock %}
+
+{% block body %}
+
+{{ form.non_field_errors }}
+<form action="{% url 'new_lesson' %}" method="post" class="form-horizontal" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for i in form %}
+    <div class="form-group">
+        <label class="col-sm-2">{{ i.label }}</label>
+        <div class="col-sm-4">
+            <div>
+                {{ i }}
+            </div>
+            <div>
+                {{ i.errors }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">
+            <input type="submit" value="Разместить занятие" class="btn btn-default"/>
+        </div>
+    </div>
+</form>
+{% endblock %}

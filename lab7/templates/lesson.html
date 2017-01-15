@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Урок №{{ lesson.id }}{% endblock %}
+
+{% block body %}
+<img src={{ lesson.image.url }} style="max-height:250px;margin-left:50px"/>
+<h1>Урок №{{ lesson.id }} &ndash; {{ lesson.name }}</h1>
+<p>{{ lesson.description }}</p>
+<p>Урок создан пользователем {{ lesson.user_posted }}</p>
+<p>Урок ведут учителя:</p>
+    <ul class="list-group">
+        {% for teacher in lesson.teachers.all %}
+            <li class="list-group-item">{{ teacher }}</a></li>
+        {% empty %}
+            <li class="list-group-item disabled">Ещё никто не вызвался вести занятие</li>
+        {% endfor %}
+    </ul>
+{% if user.is_authenticated %}
+    {% if user not in lesson.teachers.all %}
+    <form action="{% url 'teach' user.id lesson.id %}">
+        <input type="submit" class="btn btn-primary" value="Стать преподавателем!" />
+    </form>
+    {% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}АЛЛИЛУЯ!{% endblock %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+<p>Пользователь {{ user.get_username }} успешно вошёл :)</p>
+{% else %}
+<p>Авторизации не было</p>
+{% endif %}
+{% endblock %}
